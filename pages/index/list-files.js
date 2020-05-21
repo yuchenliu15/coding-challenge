@@ -20,7 +20,7 @@ Thanks for trying my challenge!
   );
 
   const plain = new File(
-    ["Just some text looking for an editor"],
+    ["Just some text looking for an editors"],
     "/plain.txt",
     {
       type: "text/plain",

@@ -23,6 +23,7 @@ const TYPE_TO_ICON = {
   "application/json": IconJSONSVG
 };
 
+// left menu
 function FilesTable({ files, activeFile, setActiveFile }) {
   return (
     <div className={css.files}>
@@ -75,6 +76,7 @@ FilesTable.propTypes = {
   setActiveFile: PropTypes.func
 };
 
+// right window
 function Previewer({ file }) {
   const [value, setValue] = useState("");
 
@@ -98,8 +100,8 @@ Previewer.propTypes = {
 
 // Uncomment keys to register editors for media types
 const REGISTERED_EDITORS = {
-  // "text/plain": PlaintextEditor,
-  // "text/markdown": MarkdownEditor,
+  "text/plain": PlaintextEditor,
+  "text/markdown": MarkdownEditor,
 };
 
 function PlaintextFilesChallenge() {
@@ -118,7 +120,6 @@ function PlaintextFilesChallenge() {
   };
 
   const Editor = activeFile ? REGISTERED_EDITORS[activeFile.type] : null;
-
   return (
     <div className={css.page}>
       <Head>
