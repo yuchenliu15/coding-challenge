@@ -15,24 +15,26 @@ function PlaintextEditor({ file, write }) {
 
   const onFileChange = (event) => {
     const input = event.target.value;
+    setContent(input);
+  }
+
+  const onExit = (event) => {
+    const input = event.target.value
     const newFile = new File(
       [input],
       file.name,
       {
         type: "text/plain",
-        lastModified: new Date("2020-01-05T16:39:00")
+        lastModified: new Date()
       }
     );
-
     write(newFile);
-    setContent(input);
-
   }
 
   return (
     <div>
       <h3>{file.name}</h3>
-      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange}></textarea>
+      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit}></textarea>
     </div>
   );
 

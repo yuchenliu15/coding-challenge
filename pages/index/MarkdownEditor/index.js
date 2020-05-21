@@ -4,19 +4,37 @@ import css from "./style.css";
 
 function MarkdownEditor({ file, write }) {
 
+
   const [content, setContent] = React.useState('');
 
   useEffect(() => {
     (async () => {
       setContent(await file.text());
     })();
-  });
+  }, [file]);
 
-  console.log(file, write);
+  const onFileChange = (event) => {
+    const input = event.target.value;
+    setContent(input);
+  }
+
+  const onExit = (event) => {
+    const input = event.target.value
+    const newFile = new File(
+      [input],
+      file.name,
+      {
+        type: "text/plain",
+        lastModified: new Date()
+      }
+    );
+    write(newFile);
+  }
+
   return (
-    <div className={css.editor}>
+    <div>
       <h3>{file.name}</h3>
-      
+      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit}></textarea>
     </div>
   );
 }
