@@ -11,13 +11,16 @@ function PlaintextEditor({ file, write }) {
     (async () => {
       setContent(await file.text());
     })();
-  });
+  }, [file]);
 
-  console.log(file, write);
+  const onFileChange = (event) => {
+    setContent(event.target.value);
+  }
+
   return (
-    <div className={css.editor}>
+    <div>
       <h3>{file.name}</h3>
-      <p>{content}</p>
+      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange}></textarea>
     </div>
   );
 

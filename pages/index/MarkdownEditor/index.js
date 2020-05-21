@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-
 import css from "./style.css";
 
 function MarkdownEditor({ file, write }) {
@@ -17,7 +16,7 @@ function MarkdownEditor({ file, write }) {
   return (
     <div className={css.editor}>
       <h3>{file.name}</h3>
-      <p>{content}</p>
+      
     </div>
   );
 }
