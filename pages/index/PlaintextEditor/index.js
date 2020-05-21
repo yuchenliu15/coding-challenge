@@ -6,6 +6,7 @@ import css from "./style.css";
 function PlaintextEditor({ file, write }) {
 
   const [content, setContent] = React.useState('');
+  const [modify, setModify] = React.useState(1);
 
   useEffect(() => {
     (async () => {
@@ -13,13 +14,22 @@ function PlaintextEditor({ file, write }) {
     })();
   }, [file]);
 
+  const modifyDate = () => { //change date for the first time editing
+    if(modify) {
+      onExit();
+      setModify(null);
+    }
+  }
+
   const onFileChange = (event) => {
     const input = event.target.value;
     setContent(input);
+    modifyDate();
   }
 
-  const onExit = (event) => {
-    const input = event.target.value
+  const onExit = () => {
+    setModify(1); //this case, whenever switch to a new document, change date for the first edit would still work
+    const input = event.target.value;
     const newFile = new File(
       [input],
       file.name,
