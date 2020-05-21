@@ -14,7 +14,19 @@ function PlaintextEditor({ file, write }) {
   }, [file]);
 
   const onFileChange = (event) => {
-    setContent(event.target.value);
+    const input = event.target.value;
+    const newFile = new File(
+      [input],
+      file.name,
+      {
+        type: "text/plain",
+        lastModified: new Date("2020-01-05T16:39:00")
+      }
+    );
+
+    write(newFile);
+    setContent(input);
+
   }
 
   return (
