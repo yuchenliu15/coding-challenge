@@ -6,6 +6,7 @@ function MarkdownEditor({ file, write }) {
 
 
   const [content, setContent] = React.useState('');
+  const [modify, setModify] = React.useState(1);
 
   useEffect(() => {
     (async () => {
@@ -13,18 +14,27 @@ function MarkdownEditor({ file, write }) {
     })();
   }, [file]);
 
+  const modifyDate = () => { //change date for the first time editing
+    if(modify) {
+      onExit();
+      setModify(null);
+    }
+  }
+
   const onFileChange = (event) => {
     const input = event.target.value;
     setContent(input);
+    modifyDate();
   }
 
-  const onExit = (event) => {
-    const input = event.target.value
+  const onExit = () => {
+    setModify(1); //this case, whenever switch to a new document, change date for the first edit would still work
+    const input = event.target.value;
     const newFile = new File(
       [input],
       file.name,
-      {
-        type: "text/plain",
+      { 
+        type: "text/markdown",
         lastModified: new Date()
       }
     );
@@ -35,8 +45,10 @@ function MarkdownEditor({ file, write }) {
     <div>
       <h3>{file.name}</h3>
       <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit}></textarea>
+      <textarea className={css.editor} value={content} rows={20} readOnly></textarea>
     </div>
   );
+
 }
 
 MarkdownEditor.propTypes = {
