@@ -5,28 +5,50 @@ import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core.js';
 import 'prismjs/components/prism-clike.js';
 import 'prismjs/components/prism-javascript.js';
-import './prism.css';
+import css from './style.css';
 
-const code = `console.log("sd")`;
+function ScriptEditor({ file, write }) {
 
-class ScriptEditor extends React.Component {
-  state = { code };
 
-  render() {
-    return (
-      <div className="container_editor_area">
-        <p className="test">haha</p>
+  const [content, setContent] = React.useState('');
 
-        <Editor
-          placeholder="Type some code…"
-          value={this.state.code}
-          onValueChange={code => this.setState({ code })}
-          highlight={code => highlight(code, languages.js)}
-          padding={10}
-          className="container__editor"
-        />
+  useEffect(() => {
+    (async () => {
+      setContent(await file.text());
+    })();
+  }, [file]);
 
-<style global jsx>{`
+  const onFileChange = (code) => {
+    const input = event.target.value;
+    setContent(code);
+
+  }
+
+  const onExit = (event) => {
+    const newFile = new File(
+      [content],
+      file.name,
+      {
+        type: "text/javascript",
+        lastModified: new Date()
+      }
+    );
+    write(newFile);
+  }
+
+  return (
+    <div className={css.editor}>
+      <Editor
+        placeholder="Type some code…"
+        value={content}
+        onValueChange={onFileChange}
+        highlight={code => highlight(code, languages.js)}
+        padding={10}
+        className="container__editor"
+        onBlur={onExit}
+      />
+
+      <style global jsx>{`
         
 
         /* Syntax highlighting */
@@ -34,10 +56,10 @@ class ScriptEditor extends React.Component {
         .token.prolog,
         .token.doctype,
         .token.cdata {
-          color: red;
+          color: #20bf6b;
         }
         .token.punctuation {
-          color: red;
+          color: black;
         }
         
         .token.property,
@@ -47,7 +69,7 @@ class ScriptEditor extends React.Component {
         .token.constant,
         .token.symbol,
         .token.deleted {
-          color: #e91e63;
+          color: #FDA7DF;
         }
         .token.selector,
         .token.attr-name,
@@ -55,14 +77,14 @@ class ScriptEditor extends React.Component {
         .token.char,
         .token.builtin,
         .token.inserted {
-          color: #4caf50;
+          color: #fa8231;
         }
         .token.operator,
         .token.entity,
         .token.url,
         .language-css .token.string,
         .style .token.string {
-          color: #795548;
+          color: #006266;
         }
         .token.atrule,
         .token.attr-value,
@@ -75,7 +97,7 @@ class ScriptEditor extends React.Component {
         .token.regex,
         .token.important,
         .token.variable {
-          color: #ff9800;
+          color: #1289A7;
         }
         .token.important,
         .token.bold {
@@ -87,13 +109,11 @@ class ScriptEditor extends React.Component {
         .token.entity {
           cursor: help;
         }
-        
+      `}</style>
+    </div>
 
-              `}</style>
-      </div>
+  );
 
-    );
-  }
 }
 
 ScriptEditor.propTypes = {

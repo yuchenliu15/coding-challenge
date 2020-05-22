@@ -6,7 +6,6 @@ import css from "./style.css";
 function PlaintextEditor({ file, write }) {
 
   const [content, setContent] = React.useState('');
-  const [modify, setModify] = React.useState(1);
   useEffect(() => {
     (async () => {
       setContent(await file.text());
@@ -18,18 +17,6 @@ function PlaintextEditor({ file, write }) {
     const input = event.target.value;
     setContent(input);
     
-    if(modify === 1) {
-      const newFile = new File(
-        [input],
-        file.name,
-        {
-          type: "text/plain",
-          lastModified: new Date()
-        }
-      );
-      write(newFile);
-      setModify(null);
-    }
   }
 
   const onExit = (event) => {
@@ -43,7 +30,6 @@ function PlaintextEditor({ file, write }) {
       }
     );
     write(newFile);
-    setModify(1);
   }
 
   return (
