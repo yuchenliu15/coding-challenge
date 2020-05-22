@@ -124,7 +124,7 @@ function PlaintextFilesChallenge() {
         [item.content],
         item.name,
         {
-          type: "text/plain", // TODO
+          type: EXTENSION_TO_TYPE[item.name.match(regex)],
           lastModified: new Date()
         }
       )
