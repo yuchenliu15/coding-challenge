@@ -3,6 +3,7 @@ import Head from "next/head";
 import PropTypes from "prop-types";
 import path from "path";
 import classNames from "classnames";
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 import { listFiles } from "./list-files";
 
@@ -107,11 +108,29 @@ const REGISTERED_EDITORS = {
 function PlaintextFilesChallenge() {
   const [files, setFiles] = useState([]);
   const [activeFile, setActiveFile] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(['files']);
 
   useEffect(() => {
-    const files = listFiles();
+    const files = cookies.files? cookies.files.map(item => {
+      return new File(
+        [item],
+        'file.name',
+        {
+          type: "text/plain",
+          lastModified: new Date()
+        }
+      )
+    }): listFiles();
     setFiles(files);
   }, []);
+
+  const fileForEach = async (items) => {
+    const list = [];
+    for(let index = 0; index < items.length; index++) {
+      list.push(await items[index].text());
+    }
+    return list;
+  }
 
   const write = file => {
     console.log("Writing... ", file.name);
@@ -123,6 +142,13 @@ function PlaintextFilesChallenge() {
     setFiles(newFiles);
     setActiveFile(file);
 
+    fileForEach(newFiles)
+      .then(newFilesCookie=> {
+        setCookie('files', JSON.stringify(newFilesCookie), {path: '/'});
+        console.log('///////////////////////////////////////////');
+        
+
+      });
   };
 
   const Editor = activeFile ? REGISTERED_EDITORS[activeFile.type] : null;
@@ -177,4 +203,12 @@ function PlaintextFilesChallenge() {
   );
 }
 
-export default PlaintextFilesChallenge;
+const App = () => {
+  return (
+    <CookiesProvider>
+      <PlaintextFilesChallenge></PlaintextFilesChallenge>
+    </CookiesProvider>
+  )
+}
+
+export default App;
