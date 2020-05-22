@@ -15,32 +15,36 @@ function MarkdownEditor({ file, write }) {
     })();
   }, [file]);
 
+  const onFileChange = (event) => {
+    const input = event.target.value;
+    setContent(input);
 
-  const modifyDate = () => { //change date for the first time editing
-    if(modify) {
-      onExit();
+    if (modify === 1) {
+      const newFile = new File(
+        [input],
+        file.name,
+        {
+          type: "text/markdown",
+          lastModified: new Date()
+        }
+      );
+      write(newFile);
       setModify(null);
     }
   }
 
-  const onFileChange = (event) => {
-    const input = event.target.value;
-    setContent(input);
-    modifyDate();
-  }
-
-  const onExit = () => {
-    setModify(1); //this case, whenever switch to a new document, change date for the first edit would still work
+  const onExit = (event) => {
     const input = event.target.value;
     const newFile = new File(
       [input],
       file.name,
-      { 
+      {
         type: "text/markdown",
         lastModified: new Date()
       }
     );
     write(newFile);
+    setModify(1);
   }
 
   return (
@@ -48,9 +52,9 @@ function MarkdownEditor({ file, write }) {
       <h3>{file.name}</h3>
       <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit}></textarea>
 
-        <div className={css.preview}>
-          <div className={css.content}>{rdmd(content)}</div>
-        </div>
+      <div className={css.preview}>
+        <div className={css.content}>{rdmd(content)}</div>
+      </div>
 
 
     </div>
