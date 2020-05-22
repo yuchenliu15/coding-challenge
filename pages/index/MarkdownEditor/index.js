@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import css from "./style.css";
+import rdmd from '@readme/markdown';
 
 function MarkdownEditor({ file, write }) {
 
@@ -13,6 +14,7 @@ function MarkdownEditor({ file, write }) {
       setContent(await file.text());
     })();
   }, [file]);
+
 
   const modifyDate = () => { //change date for the first time editing
     if(modify) {
@@ -45,7 +47,12 @@ function MarkdownEditor({ file, write }) {
     <div>
       <h3>{file.name}</h3>
       <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit}></textarea>
-      <textarea className={css.editor} value={content} rows={20} readOnly></textarea>
+
+        <div className={css.preview}>
+          <div className={css.content}>{rdmd(content)}</div>
+        </div>
+
+
     </div>
   );
 
