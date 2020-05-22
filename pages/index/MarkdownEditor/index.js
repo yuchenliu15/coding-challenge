@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import css from "./style.css";
 import rdmd from '@readme/markdown';
 
-function MarkdownEditor({ file, write }) {
+function MarkdownEditor({ file, write}) {
 
 
   const [content, setContent] = React.useState('');

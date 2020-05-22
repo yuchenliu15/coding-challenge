@@ -170,7 +170,7 @@ html, body {
   text-align: center;
   font-size: 16px;
   line-height: 16px;
-  color: var(--color-text-dark-mute);
+  /* color: var(--color-text-dark-mute); */
 }
 
 
@@ -203,3 +203,9 @@ html, body {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   padding: 20px;
 }
+
+
+
+
+
+

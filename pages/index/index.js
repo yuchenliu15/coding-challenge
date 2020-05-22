@@ -9,6 +9,7 @@ import { listFiles } from "./list-files";
 
 import MarkdownEditor from "./MarkdownEditor";
 import PlaintextEditor from "./PlaintextEditor";
+import ScriptEditor from "./ScriptEditor";
 
 import IconPlaintextSVG from "./assets/icon-plaintext.svg";
 import IconMarkdownSVG from "./assets/icon-markdown.svg";
@@ -110,6 +111,7 @@ Previewer.propTypes = {
 const REGISTERED_EDITORS = {
   "text/plain": PlaintextEditor,
   "text/markdown": MarkdownEditor,
+  "text/javascript": ScriptEditor
 };
 
 function PlaintextFilesChallenge() {
@@ -152,17 +154,14 @@ function PlaintextFilesChallenge() {
     newFiles.splice(currentFileIndex, 1, file);
     setFiles(newFiles);
     setActiveFile(file);
-
     fileForEach(newFiles)
       .then(newFilesCookie=> {
         setCookie('files', JSON.stringify(newFilesCookie), {path: '/'});
-        console.log('///////////////////////////////////////////');
-        console.log(cookies.files)
-
       });
   };
 
   const Editor = activeFile ? REGISTERED_EDITORS[activeFile.type] : null;
+
   return (
     <div className={css.page}>
       <Head>
