@@ -24,6 +24,13 @@ const TYPE_TO_ICON = {
   "application/json": IconJSONSVG
 };
 
+const EXTENSION_TO_TYPE = {
+  ".txt": "text/plain",
+  ".md": "text/markdown",
+  ".js": "text/javascript",
+  ".json": "application/json"
+}
+
 // left menu
 function FilesTable({ files, activeFile, setActiveFile }) {
   return (
@@ -111,12 +118,13 @@ function PlaintextFilesChallenge() {
   const [cookies, setCookie, removeCookie] = useCookies(['files']);
 
   useEffect(() => {
+    const regex = /[.][a-z]*/;
     const files = cookies.files? cookies.files.map(item => {
       return new File(
-        [item],
-        'file.name',
+        [item.content],
+        item.name,
         {
-          type: "text/plain",
+          type: "text/plain", // TODO
           lastModified: new Date()
         }
       )
@@ -127,7 +135,10 @@ function PlaintextFilesChallenge() {
   const fileForEach = async (items) => {
     const list = [];
     for(let index = 0; index < items.length; index++) {
-      list.push(await items[index].text());
+      list.push({
+        name: items[index].name,
+        content: await items[index].text()
+      });
     }
     return list;
   }
@@ -146,7 +157,7 @@ function PlaintextFilesChallenge() {
       .then(newFilesCookie=> {
         setCookie('files', JSON.stringify(newFilesCookie), {path: '/'});
         console.log('///////////////////////////////////////////');
-        
+        console.log(cookies.files)
 
       });
   };
