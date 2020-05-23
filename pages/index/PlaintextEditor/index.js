@@ -71,7 +71,7 @@ function PlaintextEditor({ file, write }) {
       <p style={{'color':'blue'}}>{save? 'Saved!': 'Writing...'}</p>
       <input type="range" min={15} max={25} defaultValue={15} onChange={onSizeChange} />
       </div>
-      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit} style={{'font-size': `${textSize}px`}} ></textarea>
+      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit} style={{'fontSize': `${textSize}px`}} ></textarea>
     </div>
   );
 
