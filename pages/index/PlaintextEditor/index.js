@@ -18,6 +18,7 @@ function PlaintextEditor({ file, write }) {
   }, [file]);
 
   const updateFiles = (input) => {
+
     const newFile = new File(
       [input],
       file.name,
@@ -26,26 +27,33 @@ function PlaintextEditor({ file, write }) {
         lastModified: new Date()
       }
     );
+
     write(newFile);
+
   }
 
   const onFileChange = (event) => {
+
     const input = event.target.value;
+
     setContent(input);
     clearTimeout(time);
     setTime(setTimeout(() => {
       updateFiles(input);
     }, savingRate));
-    if(save)
+
+    if (save)
       setSave(false);
+
   }
 
   const onExit = (event) => {
 
-    clearTimeout(time);
-
     const input = event.target.value;
+
+    clearTimeout(time);
     updateFiles(input);
+
   }
 
   return (

@@ -1,43 +1,67 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core.js';
 import 'prismjs/components/prism-clike.js';
 import 'prismjs/components/prism-javascript.js';
 import css from './style.css';
 
+const savingRate = process.env.savingRate;
+
 function ScriptEditor({ file, write }) {
 
-
   const [content, setContent] = React.useState('');
+  const [time, setTime] = React.useState(null);
+  const [save, setSave] = React.useState(true);
 
   useEffect(() => {
     (async () => {
       setContent(await file.text());
-
+      setSave(true);
     })();
   }, [file]);
 
-  const onFileChange = (code) => {
-    const input = event.target.value;
-    setContent(code);
-  }
+  const updateFiles = (input) => {
 
-  const onExit = (event) => {
     const newFile = new File(
-      [content],
+      [input],
       file.name,
       {
         type: "text/javascript",
         lastModified: new Date()
       }
     );
+
     write(newFile);
+
+  }
+
+  const onFileChange = (code) => {
+
+    setContent(code);
+    clearTimeout(time);
+    setTime(setTimeout(() => {
+      updateFiles(code);
+    }, savingRate));
+
+    if (save)
+      setSave(false);
+
+  }
+
+  const onExit = (event) => {
+
+    const input = event.target.value;
+
+    clearTimeout(time);
+    updateFiles(input);
+
   }
 
   return (
     <div className={css.editor}>
+      <h3>{file.name}</h3>
+      <p style={{ 'color': 'blue' }}>{save ? 'Saved!' : 'Writing...'}</p>
       <Editor
         placeholder="Type some code…"
         value={content}

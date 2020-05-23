@@ -5,7 +5,8 @@ import rdmd from '@readme/markdown';
 
 const savingRate = process.env.savingRate;
 
-function MarkdownEditor({ file, write}) {
+function MarkdownEditor({ file, write }) {
+
   const [content, setContent] = React.useState('');
   const [time, setTime] = React.useState(null);
   const [save, setSave] = React.useState(true);
@@ -18,6 +19,7 @@ function MarkdownEditor({ file, write}) {
   }, [file]);
 
   const updateFiles = (input) => {
+
     const newFile = new File(
       [input],
       file.name,
@@ -26,38 +28,43 @@ function MarkdownEditor({ file, write}) {
         lastModified: new Date()
       }
     );
+
     write(newFile);
+
   }
 
   const onFileChange = (event) => {
+
     const input = event.target.value;
+
     setContent(input);
     clearTimeout(time);
     setTime(setTimeout(() => {
       updateFiles(input);
     }, savingRate));
-    if(save)
+
+    if (save)
       setSave(false);
+
   }
 
   const onExit = (event) => {
 
-    clearTimeout(time);
-
     const input = event.target.value;
+
+    clearTimeout(time);
     updateFiles(input);
+
   }
+
   return (
     <div>
       <h3>{file.name}</h3>
-      <p style={{'color':'blue'}}>{save? 'Saved!': 'Writing...'}</p>
+      <p style={{ 'color': 'blue' }}>{save ? 'Saved!' : 'Writing...'}</p>
       <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit}></textarea>
-
       <div className={css.preview}>
         <div className={css.content}>{rdmd(content)}</div>
       </div>
-
-
     </div>
   );
 
