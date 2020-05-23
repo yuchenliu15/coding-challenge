@@ -9,6 +9,7 @@ function PlaintextEditor({ file, write }) {
   const [content, setContent] = React.useState('');
   const [time, setTime] = React.useState(null);
   const [save, setSave] = React.useState(true);
+  const [textSize, setTextSize] = React.useState()
 
   useEffect(() => {
     (async () => {
@@ -56,11 +57,20 @@ function PlaintextEditor({ file, write }) {
 
   }
 
+  const onSizeChange = (event) => {
+    const input = event.target.value;
+    console.log(input)
+    setTextSize(input);
+  }
+
   return (
     <div>
       <h3>{file.name}</h3>
+      <div className={css.tool}>
       <p style={{'color':'blue'}}>{save? 'Saved!': 'Writing...'}</p>
-      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit}></textarea>
+      <input type="range" min={15} max={25} defaultValue={15} onChange={onSizeChange} />
+      </div>
+      <textarea className={css.editor} value={content} rows={20} onChange={onFileChange} onBlur={onExit} style={{'font-size': `${textSize}px`}} ></textarea>
     </div>
   );
 
