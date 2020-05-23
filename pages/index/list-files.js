@@ -81,7 +81,7 @@ export default initialValue => {
     "name" : "Admin",
     "email" : "admin@neptune.com",
     "rights" : [ "admin", "editor", "contributor" ]
-}`
+}`  
     ],
     "/document.json",
     {

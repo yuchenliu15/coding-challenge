@@ -10,6 +10,8 @@ import { listFiles } from "./list-files";
 import MarkdownEditor from "./MarkdownEditor";
 import PlaintextEditor from "./PlaintextEditor";
 import ScriptEditor from "./ScriptEditor";
+import DataEditor from "./DataEditor";
+
 
 import IconPlaintextSVG from "./assets/icon-plaintext.svg";
 import IconMarkdownSVG from "./assets/icon-markdown.svg";
@@ -111,7 +113,8 @@ Previewer.propTypes = {
 const REGISTERED_EDITORS = {
   "text/plain": PlaintextEditor,
   "text/markdown": MarkdownEditor,
-  "text/javascript": ScriptEditor
+  "text/javascript": ScriptEditor,
+  "application/json": DataEditor
 };
 
 function PlaintextFilesChallenge() {

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core.js';
-import 'prismjs/components/prism-clike.js';
-import 'prismjs/components/prism-javascript.js';
+import './node_modules/prismjs/components/prism-clike.js.js';
+import './node_modules/prismjs/components/prism-javascript.js.js';
 import css from './style.css';
 
 function ScriptEditor({ file, write }) {
@@ -15,7 +15,6 @@ function ScriptEditor({ file, write }) {
   useEffect(() => {
     (async () => {
       setContent(await file.text());
-
     })();
   }, [file]);
 
