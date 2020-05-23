@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 import css from "./style.css";
@@ -6,20 +6,35 @@ import css from "./style.css";
 function PlaintextEditor({ file, write }) {
 
   const [content, setContent] = React.useState('');
+  const [time, setTime] = React.useState(null);
+
   useEffect(() => {
     (async () => {
       setContent(await file.text());
     })();
   }, [file]);
 
-
   const onFileChange = (event) => {
     const input = event.target.value;
     setContent(input);
-    
+    clearTimeout(time);
+    setTime(setTimeout(() => {
+      const newFile = new File(
+        [input],
+        file.name,
+        {
+          type: "text/plain",
+          lastModified: new Date()
+        }
+      );
+      write(newFile);
+    }, 2000));
   }
 
   const onExit = (event) => {
+
+    clearTimeout(time);
+
     const input = event.target.value;
     const newFile = new File(
       [input],
