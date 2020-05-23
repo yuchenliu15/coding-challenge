@@ -18,27 +18,23 @@ function DataEditor({ file, write }) {
     })();
   }, [file]);
 
-  const onFileChange = (code) => {
-    const input = event.target.value;
-    setContent(code);
-
-  }
-
-  const onExit = (event) => {
+  const onFileChange = (edit) => {
+    setContent(edit.updated_src);
     const newFile = new File(
-      [content],
+      [JSON.stringify(edit.updated_src)],
       file.name,
       {
-        type: "text/javascript",
+        type: "application/json",
         lastModified: new Date()
       }
     );
     write(newFile);
   }
 
+
   return (
     <div className={css.editor}>
-      <DynamicReactJson src={content}></DynamicReactJson>
+      <DynamicReactJson src={content} onEdit={onFileChange} onDelete={onFileChange} onAdd={onFileChange} ></DynamicReactJson>
     </div>
   );
 }
