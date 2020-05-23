@@ -10,5 +10,8 @@ module.exports = pipe(withCSS)({
       use: { loader: "svg-inline-loader", options: {} }
     });
     return config;
-  }
+  },
+  env: {
+    savingRate: 2000,
+  },
 });

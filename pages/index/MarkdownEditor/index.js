@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import css from "./style.css";
 import rdmd from '@readme/markdown';
 
-function MarkdownEditor({ file, write}) {
+const savingRate = process.env.savingRate;
 
+function MarkdownEditor({ file, write}) {
   const [content, setContent] = React.useState('');
   const [time, setTime] = React.useState(null);
   const [save, setSave] = React.useState(true);
@@ -34,7 +35,7 @@ function MarkdownEditor({ file, write}) {
     clearTimeout(time);
     setTime(setTimeout(() => {
       updateFiles(input);
-    }, 2000));
+    }, savingRate));
     if(save)
       setSave(false);
   }

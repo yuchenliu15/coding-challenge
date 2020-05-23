@@ -179,7 +179,7 @@ function PlaintextFilesChallenge() {
             than rendering and editing plaintext? Not much, as it turns out.
           </div>
     <div>
-    <form style={{'margin-bottom': '0'}}>
+    <form style={{'marginBottom': '0'}}>
   <input type="checkbox" name="checkbox1" checked readOnly/>
   <label> I have a bike</label><br/>
   <input type="checkbox" name="checkbox1" checked readOnly/>

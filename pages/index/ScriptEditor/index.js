@@ -22,7 +22,6 @@ function ScriptEditor({ file, write }) {
   const onFileChange = (code) => {
     const input = event.target.value;
     setContent(code);
-
   }
 
   const onExit = (event) => {
