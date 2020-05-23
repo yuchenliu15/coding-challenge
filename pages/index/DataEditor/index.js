@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic'
 function DataEditor({ file, write }) {
 
   const [content, setContent] = React.useState({});
-  const [object, setObject] = React.useState({});
   const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
   useEffect(() => {
