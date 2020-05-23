@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+
 import css from "./style.css";
 
 const savingRate = process.env.savingRate;

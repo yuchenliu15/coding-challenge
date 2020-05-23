@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core.js';
+
 import 'prismjs/components/prism-clike.js';
 import 'prismjs/components/prism-javascript.js';
 import css from './style.css';

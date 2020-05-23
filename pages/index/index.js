@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import path from "path";
 import classNames from "classnames";
 import { CookiesProvider, useCookies } from 'react-cookie';
-
 import { listFiles } from "./list-files";
 
 import MarkdownEditor from "./MarkdownEditor";
@@ -178,20 +177,15 @@ function PlaintextFilesChallenge() {
             Let{"'"}s have fun with files and JavaScript. What could be more fun
             than rendering and editing plaintext? Not much, as it turns out.
           </div>
-    <div>
-    <form style={{'marginBottom': '0'}}>
-  <input type="checkbox" name="checkbox1" checked readOnly/>
-  <label> I have a bike</label><br/>
-  <input type="checkbox" name="checkbox1" checked readOnly/>
-  <label > I have a bike</label><br/>
-    <input type="checkbox" name="checkbox1" checked readOnly/>
-  <label > I have a bike</label><br/>
-    <input type="checkbox" name="checkbox1" checked readOnly/>
-  <label > I have a bike</label><br/>
-</form>
-    </div>
+          <div>
+            <form style={{'marginBottom': '0'}}>
+              <input type="checkbox" name="checkbox1" checked readOnly/>
+              <label> auto save, set to 2 seconds after the typing stops</label><br/>
+              <input type="checkbox" name="checkbox1" checked readOnly/>
+              <label > saves across reloads</label><br/>
+            </form>
+          </div>
         </header>
-        
 
         <FilesTable
           files={files}
