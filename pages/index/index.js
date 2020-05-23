@@ -180,13 +180,13 @@ function PlaintextFilesChallenge() {
           </div>
     <div>
     <form style={{'margin-bottom': '0'}}>
-  <input type="checkbox" name="checkbox1" checked/>
+  <input type="checkbox" name="checkbox1" checked readOnly/>
   <label> I have a bike</label><br/>
-  <input type="checkbox" name="checkbox1" checked />
+  <input type="checkbox" name="checkbox1" checked readOnly/>
   <label > I have a bike</label><br/>
-    <input type="checkbox" name="checkbox1" checked />
+    <input type="checkbox" name="checkbox1" checked readOnly/>
   <label > I have a bike</label><br/>
-    <input type="checkbox" name="checkbox1" checked />
+    <input type="checkbox" name="checkbox1" checked readOnly/>
   <label > I have a bike</label><br/>
 </form>
     </div>
