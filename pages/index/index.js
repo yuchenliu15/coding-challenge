@@ -178,7 +178,20 @@ function PlaintextFilesChallenge() {
             Let{"'"}s have fun with files and JavaScript. What could be more fun
             than rendering and editing plaintext? Not much, as it turns out.
           </div>
+    <div>
+    <form style={{'margin-bottom': '0'}}>
+  <input type="checkbox" name="checkbox1" checked/>
+  <label> I have a bike</label><br/>
+  <input type="checkbox" name="checkbox1" checked />
+  <label > I have a bike</label><br/>
+    <input type="checkbox" name="checkbox1" checked />
+  <label > I have a bike</label><br/>
+    <input type="checkbox" name="checkbox1" checked />
+  <label > I have a bike</label><br/>
+</form>
+    </div>
         </header>
+        
 
         <FilesTable
           files={files}
